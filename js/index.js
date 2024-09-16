@@ -1,3 +1,6 @@
+// TO-DO:
+// organizar código
+
 const diaSemana = document.getElementById("dia-semana");
 const dataAtual = document.getElementById("data-atual");
 const horaAtual = document.getElementById("hora-atual");
@@ -18,20 +21,41 @@ const dialogHora = document.getElementById("dialog-hora");
 dialogHora.textContent = getCurrentTime();
 
 
+/*
 const btnDialogEntrada = document.getElementById("btn-dialog-entrada");
 btnDialogEntrada.addEventListener("click", () => {
-    saveRegisterLocalStorage(JSON.stringify(getObjectRegister("entrada")));
+    saveRegisterLocalStorage(getObjectRegister("entrada"));
 });
 
 
 const btnDialogSaida = document.getElementById("btn-dialog-saida");
 btnDialogSaida.addEventListener("click", () => {
-    saveRegisterLocalStorage(JSON.stringify(getObjectRegister("saida")));
+    saveRegisterLocalStorage(getObjectRegister("saida"));
+});
+*/
+
+
+// Apresentar para o usuário final o valor correspondente ao provável tipo de 
+// próximo ponto
+// Ex.: se o último ponto do usuário for do tipo "Entrada", selecionar por padrão
+// a option "Intervalo"
+const selectRegisterType = document.getElementById("register-type");
+
+const btnDialogRegister = document.getElementById("btn-dialog-register");
+btnDialogRegister.addEventListener("click", () => {
+
+    let register = getObjectRegister(selectRegisterType.value);
+    saveRegisterLocalStorage(register);
+    
+    localStorage.setItem("lastRegisterType", selectRegisterType.value);
 });
 
 
-function getObjectRegister(registerType) {
-    
+
+// cria um objeto correspondente a um registro de ponto
+// com data/hora/localizacao atualizados
+// o parâmetro é o tipo de ponto
+function getObjectRegister(registerType) {    
     ponto = {
         "date": getCurrentDate(),
         "time": getCurrentTime(),
@@ -47,15 +71,26 @@ btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
 })
 
-// salvar e recuperar um array de objetos ao invés de 1 objeto
+
+let registersLocalStorage = getRegisterLocalStorage("register");
+
 
 function saveRegisterLocalStorage(register) {
-    localStorage.setItem("register", register);
+
+    registersLocalStorage.push(register);
+
+    localStorage.setItem("register", JSON.stringify(registersLocalStorage));
 }
 
 function getRegisterLocalStorage(key) {
-    // retornar o valor correspondente à chave (key)
-    // getItem(chave)
+
+    let registers = localStorage.getItem(key);
+
+    if(!registers) {
+        return [];
+    }
+
+    return JSON.parse(registers);
 }
 
 // O que é uma função assíncrona?
