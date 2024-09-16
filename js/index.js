@@ -134,6 +134,22 @@ function getWeekDay() {
     const daynames = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
     return daynames[day]
 }
+// Controle de volume
+var audio = document.getElementById('audio-player');
+var volumeControl = document.getElementById('volume-control');
+
+// Atualiza o volume com base no controle
+volumeControl.addEventListener('input', function() {
+       audio.volume = this.value;
+       });
+
+// Inicia o áudio após interação do usuário
+document.addEventListener('click', function() {
+    var audio = document.getElementById('audio-player');
+    if (audio.paused) {
+        audio.play();
+    }
+});
 
 // Atualiza a hora no campo a cada segundo
 updateContentHour();

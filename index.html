@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+    <audio id="audio-player">
+        <source src="c:\\Users\\GAABRIEL\\Music\\Misc\\Walk Through The Park - TrackTribe.mp3" type="audio/mpeg">
+        Seu navegador não suporta o elemento de áudio.
+    </audio>
+    <!-- Controle de volume -->
+    <label for="volume-control">Volume: </label>
+    <input type="range" id="volume-control" min="0" max="0.5" step="0.05" value="0.2">    
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Ponto Eletrônico</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
     <div class="data-hora">
         <p id="dia-semana"></p>
