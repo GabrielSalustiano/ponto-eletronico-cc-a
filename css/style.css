@@ -119,3 +119,24 @@ body {
     font-size: 12px; /* Adjust font size */
 
 }
+
+/* General styles for the volume slider */
+input[type="range"] {
+    -webkit-appearance: none; /* Remove default styling in WebKit browsers */
+    width: 10%; /* Full width */
+    height: 8px; /* Height of the track */
+    background: #ddd; /* Track color */
+    border-radius: 5px; /* Rounded track */
+    outline: none; /* Remove outline */
+    margin: 10px 0; /* Margin around the slider */
+}
+/* Styling the thumb */
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styling */
+    appearance: none; /* Remove default styling */
+    width: 20px; /* Width of the thumb */
+    height: 20px; /* Height of the thumb */
+    border-radius: 50%; /* Circular thumb */
+    background: #ffc1b8; /* Thumb color */
+    cursor: pointer; /* Cursor style */
+}
