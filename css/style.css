@@ -6,5 +6,11 @@
     position: absolute;
     top: 0;
     right: 0;
-    
+}
+
+.playwrite {
+    font-family: "Playwrite DE Grund", cursive;
+    font-optical-sizing: auto;
+    font-weight: 400; /* Replace with the desired weight */
+    font-style: normal;
 }
