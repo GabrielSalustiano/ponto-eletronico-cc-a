@@ -11,7 +11,7 @@
 .playwrite {
     font-family: "Playwrite DE Grund", cursive;
     font-optical-sizing: auto;
-    font-weight: 400; /* Replace with the desired weight */
+    font-weight: bold; /* Replace with the desired weight */
     font-style: normal;
 }
 
@@ -31,6 +31,7 @@ body {
     display: flex;
     font-family: "Playwrite DE Grund", cursive;
     font-size: 16px;
+    font-weight: bold;
     height: 48px;
     justify-content: center;
     line-height: 24px;
@@ -101,6 +102,7 @@ body {
     color: #111;
     cursor: pointer;
     font-family: "Playwrite DE Grund", cursive;
+    font-weight: bold;
     font-size: 12px; /* Adjust font size */
     height: 32px; /* Smaller height */
     line-height: 24px;
@@ -125,8 +127,9 @@ input[type="range"] {
     -webkit-appearance: none; /* Remove default styling in WebKit browsers */
     width: 10%; /* Full width */
     height: 8px; /* Height of the track */
-    background: #ddd; /* Track color */
+    background: #ffffff; /* Track color */
     border-radius: 5px; /* Rounded track */
+    border: 2px solid black;
     outline: none; /* Remove outline */
     margin: 10px 0; /* Margin around the slider */
 }
@@ -136,6 +139,7 @@ input[type="range"]::-webkit-slider-thumb {
     appearance: none; /* Remove default styling */
     width: 20px; /* Width of the thumb */
     height: 20px; /* Height of the thumb */
+    border: 2px solid black;
     border-radius: 50%; /* Circular thumb */
     background: #ffc1b8; /* Thumb color */
     cursor: pointer; /* Cursor style */
