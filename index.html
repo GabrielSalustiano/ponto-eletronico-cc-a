@@ -26,14 +26,17 @@
     </div>
     <button class="button-56" id="btn-registrar-ponto">Registrar ponto</button>
 
-    <dialog id="dialog-ponto">
+    <dialog class="dialog" id="dialog-ponto">
+        
         <p id="dialog-data">Data</p>
         <p id="dialog-hora">Hora</p>
-        <button id="btn-dialog-entrada">Entrada</button>
-        <button>Intervalo</button>
-        <button>Volta Intervalo</button>
-        <button id="btn-dialog-saida">Saída</button>
-        <button id="dialog-fechar">X</button>
+        <div class="button-container">
+            <button class="button-dialog" id="btn-dialog-entrada">Entrada</button>
+            <button class="button-dialog">Intervalo</button>
+            <button class="button-dialog">Volta Intervalo</button>
+            <button class="button-dialog" id="btn-dialog-saida">Saída</button>
+        </div>
+        <button class="button-sair" id="dialog-fechar">X</button>
     </dialog>
 
     <script src="js/index.js"></script>

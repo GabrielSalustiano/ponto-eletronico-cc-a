@@ -16,7 +16,10 @@
 }
 
 
-  
+body {
+    background-color: 		#e3fef988
+}
+
 .button-56 {
     align-items: center;
     background-color: #fee6e3;
@@ -26,7 +29,7 @@
     color: #111;
     cursor: pointer;
     display: flex;
-    font-family: Inter, sans-serif;
+    font-family: "Playwrite DE Grund", cursive;
     font-size: 16px;
     height: 48px;
     justify-content: center;
@@ -40,9 +43,9 @@
     -webkit-user-select: none;
     touch-action: manipulation;
     margin: 0 auto; /* Centers the button horizontally */
-  }
-  
-  .button-56:after {
+}
+
+.button-56:after {
     background-color: #111;
     border-radius: 8px;
     content: "";
@@ -55,24 +58,64 @@
     transform: translate(8px, 8px);
     transition: transform .2s ease-out;
     z-index: -1;
-  }
-  
-  .button-56:hover:after {
+}
+
+.button-56:hover:after {
     transform: translate(0, 0);
-  }
-  
-  .button-56:active {
+}
+
+.button-56:active {
     background-color: #ffdeda;
     outline: 0;
-  }
-  
-  .button-56:hover {
+}
+
+.button-56:hover {
     outline: 0;
-  }
-  
-  @media (min-width: 768px) {
+}
+
+@media (min-width: 768px) {
     .button-56 {
-      padding: 0 40px;
+        padding: 0 40px;
     }
-  }
-  
+}
+.dialog {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    width: 80vw; /* Use viewport width for responsive sizing */
+    max-width: 400px; /* Set a maximum width */
+    position: fixed; /* Position fixed for centering in viewport */
+    top: 50%; /* Position 50% from the top */
+    left: 50%; /* Position 50% from the left */
+    transform: translate(-50%, -50%); /* Center the dialog box */
+    box-shadow: 8px 8px 0px #111; /* Shadow */
+    z-index: 10; /* Ensure it's on top of other elements */
+    transition: box-shadow 0.2s ease-out;
+    margin: 0; /* Ensure no margin is applied */
+}
+
+.button-dialog {
+    background-color: #fee6e3;
+    border: 2px solid #111;
+    border-radius: 8px;
+    color: #111;
+    cursor: pointer;
+    font-family: "Playwrite DE Grund", cursive;
+    font-size: 12px; /* Adjust font size */
+    height: 32px; /* Smaller height */
+    line-height: 24px;
+    padding: 0 15px; /* Smaller padding */
+    margin: 0 5px; /* Space between buttons */
+    display: inline-flex; /* Use inline-flex for side by side */
+}
+
+.button-container {
+    display: flex; /* Flexbox for side-by-side buttons */
+    justify-content: center; /* Center the buttons */
+}
+.button-sair {
+    background-color: #fee6e3;
+    font-family: "Playwrite DE Grund", cursive;
+    font-size: 12px; /* Adjust font size */
+
+}
