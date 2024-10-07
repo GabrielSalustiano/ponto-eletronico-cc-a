@@ -1,44 +1,57 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sistema de Ponto Eletrônico</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playwrite+DE+Grund:wght@100..400&display=swap" rel="stylesheet">
 </head>
 
-<body class="playwrite"> <!-- Apply font class here -->
+<body class="playwrite"> <!-- Fonte aplicada aqui -->
+    <!-- Áudio e controle de volume -->
     <audio id="audio-player">
         <source src="assets/Walk Through The Park - TrackTribe.mp3" type="audio/mpeg">
         Seu navegador não suporta o elemento de áudio.
     </audio>
-    <!-- Controle de volume -->
     <label for="volume-control">Volume: </label>
-    <input type="range" id="volume-control" min="0" max="0.5" step="0.05" value="0.2">    
+    <input type="range" id="volume-control" min="0" max="0.5" step="0.05" value="0.2">
 
+    <!-- Data e hora -->
     <div class="data-hora">
         <p id="dia-semana"></p>
         <p id="data-atual"></p>
         <p id="hora-atual"></p>
     </div>
+
+    <!-- Botão de registrar ponto -->
     <button class="button-56" id="btn-registrar-ponto">Registrar ponto</button>
 
+    <!-- Diálogo para registrar ponto -->
     <dialog class="dialog" id="dialog-ponto">
-        
         <p id="dialog-data">Data</p>
         <p id="dialog-hora">Hora</p>
+        <!-- Tipos de ponto -->
         <div class="button-container">
-            <button class="button-dialog" option value="entrada" id="btn-dialog-entrada">Entrada</button>
-            <button class="button-dialog"option value="intervalo" >Intervalo</button>
-            <button class="button-dialog"option value="volta-intervalo">Volta Intervalo</button>
-            <button class="button-dialog" id="btn-dialog-saida"option value="btn-dialog-saida">Saída</button>
+            <button class="button-dialog" id="btn-dialog-entrada">Entrada</button>
+            <button class="button-dialog" id="btn-dialog-intervalo">Intervalo</button>
+            <button class="button-dialog" id="btn-dialog-volta-intervalo">Volta Intervalo</button>
+            <button class="button-dialog" id="btn-dialog-saida">Saída</button>
         </div>
+
+        <!-- Último registro -->
+        <p id="dialog-ultimo-registro"></p> <!-- Certifique-se de que este ID está presente no HTML -->
         <button class="button-sair" id="dialog-fechar">X</button>
     </dialog>
 
+    <!-- Alerta de ponto registrado -->
+    <div id="alerta-ponto-registrado" class="hidden">
+        <p>Ponto registrado com sucesso!</p>
+    </div>
+
+    <!-- Inclusão do script JavaScript -->
     <script src="js/index.js"></script>
 </body>
 </html>
