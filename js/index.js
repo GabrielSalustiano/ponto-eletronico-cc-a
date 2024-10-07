@@ -1,161 +1,233 @@
-// Seleciona elementos HTML para exibir o dia da semana, data atual e hora atual
+// TO-DO:
+// organizar código
 const diaSemana = document.getElementById("dia-semana");
 const dataAtual = document.getElementById("data-atual");
 const horaAtual = document.getElementById("hora-atual");
 const btnRegistrarPonto = document.getElementById("btn-registrar-ponto");
 
-// Adiciona um ouvinte de eventos para o botão de registro de ponto, que chama a função register() ao ser clicado
 btnRegistrarPonto.addEventListener("click", register);
 
-// Define o conteúdo de texto para o dia da semana e a data atual
 diaSemana.textContent = getWeekDay();
 dataAtual.textContent = getCurrentDate();
 
-// Seleciona o diálogo de ponto
 const dialogPonto = document.getElementById("dialog-ponto");
 
-// Preenche o diálogo com a data e hora atual
 const dialogData = document.getElementById("dialog-data");
-dialogData.textContent = getCurrentDate();
+dialogData.textContent = "Data: " + getCurrentDate();
 
 const dialogHora = document.getElementById("dialog-hora");
-dialogHora.textContent = getCurrentTime();
+//dialogHora.textContent = getCurrentTime();
 
-// Adiciona ouvintes de evento para os botões de registrar entrada e saída, chamando funções que salvam esses registros no localStorage
-const btnDialogEntrada = document.getElementById("btn-dialog-entrada");
-btnDialogEntrada.addEventListener("click", () => {
-    saveRegisterLocalStorage(getObjectRegister("entrada"));
+const selectRegisterType = document.getElementById("register-type");
+
+
+// TO-DO:
+// finalizar a função
+function setRegisterType() {
+    let lastType = localStorage.getItem("lastRegisterType");
+    if(lastType == "entrada") {
+        selectRegisterType.value = "intervalo";
+        return;
+    }
+    if(lastType == "intervalo") {
+
+    }
+    if(lastType == "volta-intervalo") {
+        
+    }
+    if(lastType == "saida") {
+    
+    }
+    // Continuar de acordo com as regras abaixo
+    // REGRA
+    // ÚLTIMO PONTO DO USUÁRIO  |  VALOR DA OPTION DO SELECT
+    // Entrada                  |  Intervalo
+    // Intervalo                |  Volta Intervalo
+    // Volta Intervalo          |  Saída
+    // Saída                    |  Entrada
+}
+
+
+
+const btnDialogRegister = document.getElementById("btn-dialog-register");
+btnDialogRegister.addEventListener("click", async () => {
+    // PENSAR: o que fazer quando um usuário registrar o mesmo tipo de ponto
+    // dentro de x minutos?
+
+    let register = await getObjectRegister(selectRegisterType.value);
+    saveRegisterLocalStorage(register);
+    
+    localStorage.setItem("lastRegister", JSON.stringify(register));
+
+    const alertaSucesso = document.getElementById("alerta-ponto-registrado");
+    alertaSucesso.classList.remove("hidden");
+    alertaSucesso.classList.add("show");
+
+    setTimeout(() => {
+        alertaSucesso.classList.remove("show");
+        alertaSucesso.classList.add("hidden");
+    }, 5000);
+
+    dialogPonto.close();
 });
 
-const btnDialogSaida = document.getElementById("btn-dialog-saida");
-btnDialogSaida.addEventListener("click", () => {
-    saveRegisterLocalStorage(getObjectRegister("saida"));
-});
 
-// Função que cria e retorna um objeto de registro de ponto (entrada ou saída), com data, hora, localização, ID e tipo de registro
-function getObjectRegister(registerType) {
+
+// cria um objeto correspondente a um registro de ponto
+// com data/hora/localizacao atualizados
+// o parâmetro é o tipo de ponto
+async function getObjectRegister(registerType) {    
+
+    const location = await getUserLocation();
+
+    console.log(location);
+
     ponto = {
         "date": getCurrentDate(),
         "time": getCurrentTime(),
-        "location": getUserLocation(), // Chama uma função para obter a localização do usuário
+        "location": location,
         "id": 1,
-        "type": registerType // Pode ser "entrada" ou "saída"
+        "type": registerType
     }
     return ponto;
 }
 
-// Adiciona um ouvinte de evento para fechar o diálogo de ponto ao clicar no botão de fechar
 const btnDialogFechar = document.getElementById("dialog-fechar");
 btnDialogFechar.addEventListener("click", () => {
     dialogPonto.close();
-});
+})
 
-// Carrega os registros salvos no localStorage (se houver)
+
 let registersLocalStorage = getRegisterLocalStorage("register");
 
-// Função para salvar um registro de ponto no localStorage. Primeiro converte o array de objetos para uma string JSON
-// TO-DO: Resolver o problema onde os índices do array estão sendo salvos como strings em vez de objetos
+
 function saveRegisterLocalStorage(register) {
-    registersLocalStorage.push(register); // Adiciona o novo registro ao array
-    localStorage.setItem("register", JSON.stringify(registersLocalStorage)); // Salva no localStorage
+    registersLocalStorage.push(register);
+    localStorage.setItem("register", JSON.stringify(registersLocalStorage));
 }
 
-// Função para recuperar os registros do localStorage
 function getRegisterLocalStorage(key) {
-    let registers = localStorage.getItem(key); // Obtém o valor da chave do localStorage
+
+    let registers = localStorage.getItem(key);
 
     if(!registers) {
-        return []; // Se não houver registros, retorna um array vazio
+        return [];
     }
 
-    return JSON.parse(registers); // Converte a string JSON de volta para um array de objetos
+    return JSON.parse(registers);
 }
 
-// Função que tenta obter a localização do usuário usando a API de geolocalização do navegador
+// O que é uma função assíncrona?
+// O que é um objeto Javascript?
+// O que é uma instância?
+// O que é PROTOTYPE?
+/*
 function getUserLocation() {
     navigator.geolocation.getCurrentPosition((position) => {   
         let userLocation = {
-            "lat": position.coords.latitude, // Obtém a latitude
-            "long": position.coords.longitude // Obtém a longitude
+            "lat": position.coords.latitude,
+            "long": position.coords.longitude
         }
-        return userLocation; // Retorna a localização do usuário
+        return userLocation;
     });
 }
+*/
 
-// O código comentado aqui sugere maneiras de garantir que uma função assíncrona seja processada corretamente
 
 // Como garantir que uma função assíncrona já foi executada/processada?
 // Possíveis soluções
 
 //getUserLocation(functionCallback) {
-//     navigator.geolocation.getCurrentPosition((position) => {
-//         userLocation = {
-//             OBJETO com lat e long
-//         }
-//         functionCallback(userLocation)
-//     })
+    //navigator.geolocation.getCurrentPosition((position) => {
+        //userLocation = {
+            //OBJETO com lat e long
+        //}
+        //functionCallback(userLocation)
+    //})
 //}
 
 // OU
 
 //getUserLocation() {
-//     return new Promise((suc, fail) => {
-//         navigator.geolocation.getCurrentPosition()
-//     })
-//}
+    //return new Promise((suc, fail) => {
+        //navigator.geolocation.getCurrentPosition()
+    //})
 
-// Função que abre o diálogo para registrar ponto
+    
+//}
+ 
+function getUserLocation() {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition((position) => {
+            let userLocation = {
+                "latitude": position.coords.latitude,
+                "longitude": position.coords.longitude
+            }
+            resolve(userLocation);
+        }, 
+        (error) => {
+            reject("Erro " + error);
+        });
+    });
+}
+
+
 function register() {
+
+    const dialogUltimoRegistro = document.getElementById("dialog-ultimo-registro");
+    let lastRegister = JSON.parse(localStorage.getItem("lastRegister"));
+
+    if(lastRegister) {
+        let lastDateRegister = lastRegister.date;
+        let lastTimeRegister = lastRegister.time;
+        let lastRegisterType = lastRegister.type;
+
+        dialogUltimoRegistro.textContent = "Último Registro: " + lastDateRegister + " | " + lastTimeRegister + " | " + lastRegisterType;
+    }
+
+    dialogHora.textContent = "Hora: " + getCurrentTime();
+
+    let interval = setInterval(() => {
+        dialogHora.textContent = "Hora: " + getCurrentTime();
+    }, 1000);
+
+    console.log(interval);
+
+    // TO-DO:
+    // Podemos manter esses setInterval sem finalizar?
+    // Como podemos usar o clearInterval()?
+
     dialogPonto.showModal();
 }
 
-// Função para atualizar o conteúdo do campo de hora com a hora atual
+
 function updateContentHour() {
     horaAtual.textContent = getCurrentTime();
 }
 
-// Função que retorna a hora atual no formato hh:mm:ss
+
 function getCurrentTime() {
-    const date = new Date(); // Cria um objeto Date
+    const date = new Date();
     return String(date.getHours()).padStart(2, '0') + ":" + String(date.getMinutes()).padStart(2, '0') + ":" + String(date.getSeconds()).padStart(2, '0');
 }
 
-// Função que retorna a data atual no formato dd/mm/aaaa
+
 function getCurrentDate() {
     const date = new Date(); 
-    let mes = date.getMonth() + 1; // Os meses em JavaScript vão de 0 a 11, por isso é necessário adicionar 1
+    let mes = date.getMonth() + 1;
     return String(date.getDate()).padStart(2, '0') + "/" + String(mes).padStart(2, '0') + "/" +  String(date.getFullYear()).padStart(2, '0');
 }
 
-// Função que retorna o nome do dia da semana (Domingo a Sábado) baseado no dia atual
 function getWeekDay() {
     const date = new Date()
-    const day = date.getDay() // Obtém o dia da semana (0 = Domingo, 1 = Segunda, etc.)
+    const day = date.getDay()
     const daynames = ["Domingo", "Segunda-feira", "Terça-feira", "Quarta-feira", "Quinta-feira", "Sexta-feira", "Sábado"];
     return daynames[day]
 }
-// Controle de volume
-var audio = document.getElementById('audio-player');
-var volumeControl = document.getElementById('volume-control');
 
-// Atualiza o volume com base no controle
-volumeControl.addEventListener('input', function() {
-       audio.volume = this.value;
-       });
-
-// Inicia o áudio após interação do usuário
-document.addEventListener('click', function() {
-    var audio = document.getElementById('audio-player');
-    if (audio.paused) {
-        audio.play();
-    }
-});
-
-// Atualiza a hora no campo a cada segundo
 updateContentHour();
 setInterval(updateContentHour, 1000);
 
-// Exibe no console a hora, data e dia da semana atual para teste
 console.log(getCurrentTime());
 console.log(getCurrentDate());
 console.log(getWeekDay());

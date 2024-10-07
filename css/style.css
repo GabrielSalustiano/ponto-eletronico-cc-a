@@ -120,27 +120,49 @@ body {
     font-family: "Playwrite DE Grund", cursive;
     font-size: 12px; /* Adjust font size */
 
+
 }
 
 /* General styles for the volume slider */
 input[type="range"] {
     -webkit-appearance: none; /* Remove default styling in WebKit browsers */
-    width: 10%; /* Full width */
+    width: 10%; /* Width of the track */
     height: 8px; /* Height of the track */
-    background: #ffffff; /* Track color */
+    background: #ffffff; /* Background for inactive track */
     border-radius: 5px; /* Rounded track */
-    border: 2px solid black;
+    border: 1px solid black;
     outline: none; /* Remove outline */
     margin: 10px 0; /* Margin around the slider */
+    /* Extra styles for cross-browser consistency */
 }
-/* Styling the thumb */
+
+/* Webkit browsers */
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    background: #ffffff; /* Background color for the inactive part of the track */
+    border-radius: 5px;
+    border: 1px solid black;
+}
+
+/* The active part of the slider (before the thumb) in Webkit browsers */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none; /* Remove default styling */
-    appearance: none; /* Remove default styling */
-    width: 20px; /* Width of the thumb */
-    height: 20px; /* Height of the thumb */
+    appearance: none;
+    width: 20px;
+    height: 20px;
     border: 2px solid black;
     border-radius: 50%; /* Circular thumb */
     background: #ffc1b8; /* Thumb color */
     cursor: pointer; /* Cursor style */
+    margin-top: -7px; /* Adjust the thumb position to align with the track */
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+    background: linear-gradient(to right, #ffc1b8 0%, #ffc1b8 var(--percent), #ffffff var(--percent), #ffffff 100%);
+}
+
+/* Update the percentage of the active part */
+input[type="range"] {
+    --percent: 50%; /* Default value, can be controlled via JavaScript */
 }
